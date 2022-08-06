@@ -1,9 +1,9 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const path = require("path");
+
 const testRoutes = require("./routes/testRoutes");
-const homeRoutes = require("./routes/homeRoutes");
-const notFoundRoutes = require("./routes/notFoundRoutes");
+const defaultRoutes = require("./routes/defaultRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,7 +27,6 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.use("/test", testRoutes);
-app.use("/", homeRoutes);
-app.use("*", notFoundRoutes);
+app.use("/", defaultRoutes);
 
 app.listen(PORT);
