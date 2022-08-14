@@ -2,8 +2,9 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const path = require("path");
 
-const testRoutes = require("./routes/testRoutes");
+const loginRoutes = require("./routes/loginRoutes");
 const defaultRoutes = require("./routes/defaultRoutes");
+const signupRoutes = require("./routes/signupRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,7 +27,8 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-app.use("/test", testRoutes);
+app.use("/signup", signupRoutes);
+app.use("/login", loginRoutes);
 app.use("/", defaultRoutes);
 
 app.listen(PORT);

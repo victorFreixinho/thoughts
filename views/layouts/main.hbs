@@ -2,6 +2,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,7 +13,7 @@
     />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="shortcut icon" href="images/lamp.png" type="image/png" />
-    <title>Bootstrap Example</title>
+    <title>Thoughts</title>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
     ></script>
@@ -39,21 +40,22 @@
           id="navbarSupportedContent"
           style=""
         >
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link {{#if content.thoughts}}active{{/if}}" aria-current="page" href="/">Thoughts</a>
-            </li>
-            <li class="nav-item {{#if content.login}}active{{/if}}">
-              <a class="nav-link" href="/">{{#if content.logged}}Logout{{else}}Login{{/if}}</a>
-            </li>
-            {{#if content.logged}}
-            {{else}}
-                <li class="nav-item {{#if content.signup}}active{{/if}}">
-                    <a class="nav-link" href="/">Sign up</a>
-                </li>
-            {{/if}}
-            
-          </ul>
+          {{#with app}}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link{{#if home}} active{{/if}}" aria-current="page" href="/">Thoughts</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link{{#if login}} active{{/if}}" href="/{{#if logged}}{{else}}login{{/if}}">{{#if logged}}Logout{{else}}Login{{/if}}</a>
+              </li>
+              {{#if content.logged}}
+              {{else}}
+                  <li class="nav-item">
+                      <a class="nav-link{{#if signup}} active{{/if}}" href="/signup">Sign up</a>
+                  </li>
+              {{/if}}  
+            </ul>
+          {{/with}}
         </div>
       </div>
     </nav>

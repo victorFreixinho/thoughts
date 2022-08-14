@@ -1,0 +1,48 @@
+.navbar {
+  margin-bottom: 20px;
+}
+
+.form-floating,
+.checkbox {
+  margin-bottom: 5px !important;
+}
+
+.form-signin {
+  max-width: 330px;
+}
+
+.signin-rememberme-label {
+  margin: 17px auto;
+}
+
+.card {
+  margin: 10px;
+}
+
+.card-header {
+  display: flex;
+}
+
+.cards-container {
+  max-width: 500px;
+  margin: auto;
+}
+
+.fa-trash {
+  color: red;
+}
+
+.fa-edit {
+  color: blue;
+}
+
+.thought-icons-container {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  align-self: center;
+}
+
+.thought-icons-container > span {
+  cursor: pointer;
+}
