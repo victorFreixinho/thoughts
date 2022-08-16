@@ -6,6 +6,9 @@ const loginRoutes = require("./routes/loginRoutes");
 const defaultRoutes = require("./routes/defaultRoutes");
 const signupRoutes = require("./routes/signupRoutes");
 
+// just to test connection
+const conn = require("./db/conn");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 

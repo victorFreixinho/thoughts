@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": null,
+    "password": null,
+    "database": "thoughts_development",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": null,
+    "password": null,
+    "database": "thoughts",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}

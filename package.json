@@ -2,10 +2,14 @@
   "name": "thoughts",
   "version": "1.0.0",
   "description": "A monolithic app with login and thought recording, using node",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon ./index.js localhost 3000"
+    "create-migration": "npx sequelize-cli migration:create --name",
+    "migrate-dev": "NODE_ENV=development npx sequelize-cli db:create; npx sequelize-cli db:migrate",
+    "migrate-prod": "NODE_ENV=production npx sequelize-cli db:create; npx sequelize-cli db:migrate",
+    "serve": "NODE_ENV=development PORT=3000 nodemon ./index.js localhost 3000",
+    "start": "NODE_ENV=production PORT=8080 node server.js"
   },
   "repository": {
     "type": "git",
@@ -23,9 +27,12 @@
   "homepage": "https://github.com/victorFreixinho/thoughts#readme",
   "dependencies": {
     "express": "^4.18.1",
-    "express-handlebars": "^6.0.6"
+    "express-handlebars": "^6.0.6",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.21.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "sequelize-cli": "^6.4.1"
   }
 }
