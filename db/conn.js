@@ -4,7 +4,7 @@ const dbConfig = require("../config/database.json");
 
 const conn = new Sequelize(dbConfig[process.env.NODE_ENV]);
 
-(async () => {
+async function connectSequelize() {
   try {
     await conn.authenticate();
     console.log("Successfully connected!");
@@ -12,6 +12,6 @@ const conn = new Sequelize(dbConfig[process.env.NODE_ENV]);
   } catch (error) {
     console.error("Error trying to connect: ", error);
   }
-})();
+}
 
-module.exports = conn;
+module.exports = { conn, connectSequelize };

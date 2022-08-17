@@ -17,6 +17,8 @@ class Thought extends Model {
         // Other model options go here
         sequelize, // We need to pass the connection instance
         modelName: "Thought", // We need to choose the model name
+        tableName: "thoughts",
+        underscored: true,
       }
     );
   }

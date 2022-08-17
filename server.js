@@ -3,11 +3,11 @@ const exphbs = require("express-handlebars");
 const path = require("path");
 
 const loginRoutes = require("./routes/loginRoutes");
-const defaultRoutes = require("./routes/defaultRoutes");
+const thoughtsRoutes = require("./routes/thoughtsRoutes");
 const signupRoutes = require("./routes/signupRoutes");
 
-// just to test connection
-const conn = require("./db/conn");
+// Test connection and init models
+require("./db/conn").connectSequelize();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,6 +32,7 @@ app.use(express.static("public"));
 
 app.use("/signup", signupRoutes);
 app.use("/login", loginRoutes);
-app.use("/", defaultRoutes);
+app.use("/", thoughtsRoutes);
+app.use("*", (_, res) => res.render("not-found"));
 
 app.listen(PORT);

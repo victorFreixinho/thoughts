@@ -1,0 +1,151 @@
+<div class="text-center cards-container">
+
+  <!-- Button trigger modal -->
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#modal-add-thought"
+    aria-hidden="true"
+  >
+    <i class="fa fa-plus"></i>
+    Add thought
+  </button>
+
+  <!-- Add Thought modal -->
+  <div
+    class="modal fade"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    role="dialog"
+    id="modal-add-thought"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <!-- <h5 class="modal-title">Modal title</h5> -->
+          <h2 class="fw-bold mb-0">Add thought</h2>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body p-5 pt-0">
+          <form method="POST" action="/add" class="">
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control rounded-3"
+                name="title"
+                placeholder="Title"
+              />
+              <label for="title">Title</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control rounded-3"
+                name="message"
+                placeholder="Message"
+              />
+              <label for="message">Message</label>
+            </div>
+            <button
+              class="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
+              type="submit"
+            >Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thought Cards -->
+  {{#each thoughts}}
+    <div class="card">
+      <div class="card-header">
+        {{this.title}}
+        <div class="thought-icons-container">
+          <a href="/delete/{{this.id}}"><i class="fa fa-trash"></i></a>
+          <span
+            data-bs-toggle="modal"
+            data-bs-target="#modal-update-thought-{{this.id}}"
+            aria-hidden="true"
+          ><i class="fa fa-edit"></i></span>
+
+          <!-- Edit Thought modal -->
+          <div
+            class="modal fade"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            role="dialog"
+            id="modal-update-thought-{{this.id}}"
+          >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content rounded-4 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                  <!-- <h5 class="modal-title">Modal title</h5> -->
+                  <h2 class="fw-bold mb-0">Edit thought</h2>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+
+                <div class="modal-body p-5 pt-0">
+                  <form method="POST" action="/update" class="">
+                    <input
+                      type="text"
+                      class="form-control rounded-3"
+                      name="id"
+                      hidden="true"
+                      value="{{this.id}}"
+                    />
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control rounded-3"
+                        name="title"
+                        placeholder="Title"
+                        value="{{this.title}}"
+                      />
+                      <label for="title">Title</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control rounded-3"
+                        name="message"
+                        placeholder="Message"
+                        value="{{this.message}}"
+                      />
+                      <label for="message">Message</label>
+                    </div>
+                    <button
+                      class="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
+                      type="submit"
+                    >Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <p>{{this.message}}</p>
+          <footer class="blockquote-footer">{{this.author.name}},
+            {{this.author.email}}</footer>
+        </blockquote>
+      </div>
+    </div>
+  {{/each}}
+</div>
