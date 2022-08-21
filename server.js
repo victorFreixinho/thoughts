@@ -6,33 +6,55 @@ const loginRoutes = require("./routes/loginRoutes");
 const thoughtsRoutes = require("./routes/thoughtsRoutes");
 const signupRoutes = require("./routes/signupRoutes");
 
-// Test connection and init models
-require("./db/conn").connectSequelize();
+const models = require("./models");
+const conn = require("./db/conn");
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+// Get server configs based on environment
+const serverConfig = require("./config/server.json")[process.env.NODE_ENV];
 
-// handlebars config
-app.engine(
-  "hbs",
-  exphbs.engine({
-    extname: "hbs",
-    layoutsDir: path.join(__dirname, "views/layouts/"),
-    defaultLayout: "main",
-  })
-);
-app.set("views", path.join(__dirname, "views/"));
-app.set("view engine", "hbs");
+function startServer() {
+  const app = express();
 
-// For POST/PUT requests
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+  // handlebars config
+  app.engine(
+    "hbs",
+    exphbs.engine({
+      extname: "hbs",
+      layoutsDir: path.join(__dirname, "views/layouts/"),
+      defaultLayout: "main",
+    })
+  );
+  app.set("views", path.join(__dirname, "views/"));
+  app.set("view engine", "hbs");
 
-app.use(express.static("public"));
+  // For POST/PUT requests
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
 
-app.use("/signup", signupRoutes);
-app.use("/login", loginRoutes);
-app.use("/", thoughtsRoutes);
-app.use("*", (_, res) => res.render("not-found"));
+  app.use(express.static("public"));
 
-app.listen(PORT);
+  app.use("/signup", signupRoutes);
+  app.use("/login", loginRoutes);
+  app.use("/", thoughtsRoutes);
+  app.use("*", (_, res) => res.render("not-found"));
+
+  app.listen(serverConfig?.port);
+}
+
+(async () => {
+  if (!serverConfig) {
+    console.error(
+      "NODE_ENV is not configured correctly (development or production)."
+    );
+    return;
+  }
+  // Test connection and init models
+  try {
+    await conn.authenticate();
+    console.log("Successfully connected to database!");
+    models.init(conn);
+    startServer();
+  } catch (error) {
+    console.error("Error trying to connect to database: ", error);
+  }
+})();

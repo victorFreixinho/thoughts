@@ -4,19 +4,16 @@ class Thought extends Model {
   static init(sequelize) {
     super.init(
       {
-        title: {
-          type: DataTypes.STRING,
-          allowNull: false,
+        id: {
+          type: DataTypes.BIGINT,
+          primaryKey: true,
         },
-        message: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
+        title: DataTypes.STRING,
+        message: DataTypes.STRING,
       },
       {
-        // Other model options go here
-        sequelize, // We need to pass the connection instance
-        modelName: "Thought", // We need to choose the model name
+        sequelize,
+        modelName: "Thought",
         tableName: "thoughts",
         underscored: true,
       }

@@ -5,4 +5,5 @@ module.exports = {
     // init models here
     Thought.init(sequelize);
   },
+  Thought,
 };
