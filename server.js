@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require("express");
 const exphbs = require("express-handlebars");
 const path = require("path");
@@ -6,8 +8,7 @@ const loginRoutes = require("./routes/loginRoutes");
 const thoughtsRoutes = require("./routes/thoughtsRoutes");
 const signupRoutes = require("./routes/signupRoutes");
 
-const models = require("./models");
-const conn = require("./db/conn");
+const db = require("./db");
 
 // Get server configs based on environment
 const serverConfig = require("./config/server.json")[process.env.NODE_ENV];
@@ -48,11 +49,9 @@ function startServer() {
     );
     return;
   }
-  // Test connection and init models
   try {
-    await conn.authenticate();
+    await db.sequelize.authenticate();
     console.log("Successfully connected to database!");
-    models.init(conn);
     startServer();
   } catch (error) {
     console.error("Error trying to connect to database: ", error);
